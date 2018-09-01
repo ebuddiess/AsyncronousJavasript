@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Async-Await</title>
+</head>
+
+<body>
+    <script>
+        var apiurl1 = "https://pixabay.com/api/?key=9765780-e9549c9bebccb5f2a2b4235c4&q=sex";
+        var apiurl2 = "https://pixabay.com/api/?key=9765780-e9549c9bebccb5f2a2b4235c4&q=apple";
+        var apiurl3 = "https://pixabay.com/api/?key=9765780-e9549c9bebccb5f2a2b4235c4&q=monkey";
+
+        function getData(url) {
+            return new Promise((resolve, reject) => {
+                let xhr = new XMLHttpRequest();
+                xhr.open("get", url, true);
+                xhr.onload = function() {
+                    if (xhr.status == 200) {
+                        resolve(JSON.parse(this.responseText))
+                    } else {
+                        reject(xhr.statusText)
+                    }
+                }
+                xhr.send();
+            });
+        }
+        /*
+                getData(apiurl1)
+                    .then((res) => {
+                        console.log(res);
+                    }) */
+        async function getdata() {
+            const response = await getData(apiurl1);
+            const another = await getData(apiurl2);
+            console.log(another);
+        }
+        getdata()
+    </script>
+</body>
+
+</html>
